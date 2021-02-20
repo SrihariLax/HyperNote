@@ -18,3 +18,7 @@
 .hover-item:hover .hover-item-toolbar {
     visibility: visible;
 }
+
+.Button:hover {
+    cursor: pointer;
+}

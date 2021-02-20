@@ -6,6 +6,7 @@ import Textbox from "../../ui/Textbox";
 import Tooltip from "../../ui/Tooltip";
 import Tile from "./Tile";
 import { openDatabase } from "../../Database";
+import "./Project.css";
 import {
     createTilesDb,
     listTileNames,
@@ -136,26 +137,28 @@ const Board = (props) => {
                         }}
                         handleConfirm={handleNameChange}
                     />
-                    <div
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setTitleEdit(true);
-                        }}
-                        style={style.renameIcon}
-                    >
-                        <Tooltip value="Rename" position="mouse">
+                    <Tooltip value="Rename" position="mouse">
+                        <div
+                            className="Button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setTitleEdit(true);
+                            }}
+                            style={style.renameIcon}
+                        >
                             <FontAwesomeIcon icon={faPen} />
-                        </Tooltip>
-                    </div>
+                        </div>
+                    </Tooltip>
                 </div>
                 <div
+                    className="Button"
                     onClick={(e) => {
                         e.stopPropagation();
                         setNewTile(true);
                     }}
                     style={style.addIcon}
                 >
-                    <Tooltip value="Add" position="mouse">
+                    <Tooltip value="Add" position="bottom">
                         <FontAwesomeIcon icon={faPlus} />
                     </Tooltip>
                 </div>
@@ -183,11 +186,12 @@ const Board = (props) => {
             ))}
             {newTile && (
                 <Textbox
-                    style={{ margin: "1px 5px" }}
+                    containerStyle={style.title}
                     handleConfirm={(e) => {
                         createNewTile(e);
                         setNewTile(false);
                     }}
+                    handleCancel={() => setNewTile(false)}
                 />
             )}
             {showModal && (

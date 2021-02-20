@@ -13,7 +13,7 @@ import {
     deleteBoardRow,
 } from "./ProjectDB";
 import Tooltip from "../../ui/Tooltip";
-
+import "./Project.css";
 const style = {
     container: {
         background: "var(--backgroundColor)",
@@ -126,13 +126,14 @@ const ProjectPage = (props) => {
                         Delete Box
                     </div>
                     <div
+                        className="Button"
                         onClick={(e) => {
                             e.stopPropagation();
                             createNewBoard();
                         }}
                         style={style.addIcon}
                     >
-                        <Tooltip value="Add Board" position="mouse">
+                        <Tooltip value="Add Board" position="left">
                             <FontAwesomeIcon icon={faPlus} />
                         </Tooltip>
                     </div>
