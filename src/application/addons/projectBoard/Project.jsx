@@ -102,7 +102,7 @@ const Project = () => {
 
     return (
         <div style={style.container}>
-            <div style={style.header}>Tasks</div>
+            <div style={style.header}>Project Boards</div>
             <div style={style.controls}>
                 <div style={style.controlItem} onClick={() => setTextbox(true)}>
                     <Tooltip value="Add" position="bottom">
