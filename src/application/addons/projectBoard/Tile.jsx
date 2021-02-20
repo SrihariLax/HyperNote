@@ -1,6 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+    faPlus,
+    faPen,
+    faCaretRight,
+    faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../../ui/Tooltip";
 import Modal from "../../ui/Modal";
@@ -12,6 +17,7 @@ import DatePicker from "../../ui/DatePicker";
 import UserPreferences from "../../settings/UserPreferences";
 import { openDatabase } from "../../Database";
 import { listTileRows, editTileRow } from "./ProjectDB";
+import "./Project.css";
 
 const style = {
     container: {
@@ -59,7 +65,6 @@ const style = {
         textAlign: "left",
         marginBottom: "0.2rem",
         marginLeft: "0.3rem",
-        cursor: "pointer",
         fontSize: "16px",
         borderRadius: "4px",
         width: "auto",
@@ -79,8 +84,13 @@ const style = {
         borderRadius: "4px",
         width: "auto",
         display: "flex",
-        justifyContent: "space-between",
         flexFlow: "row nowrap",
+    },
+    checklistGroup: {
+        width: "100%",
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "space-between",
     },
     linkContainer: {
         background: "var(--backgroundColor)",
@@ -163,16 +173,20 @@ const Tile = (props) => {
                         style={style.title}
                         handleConfirm={handleNameChange}
                     />
+
                     <div
+                        className="Button"
                         style={style.renameIcon}
                         onClick={(e) => {
                             e.stopPropagation();
                             setTitleEdit(true);
                         }}
                     >
-                        <Tooltip value="Rename Tile" position="mouse">
-                            <FontAwesomeIcon icon={faPen} />
-                        </Tooltip>
+                        <div>
+                            <Tooltip value="Rename Tile" position="mouse">
+                                <FontAwesomeIcon icon={faPen} />
+                            </Tooltip>
+                        </div>
                     </div>
                 </div>
                 <Textarea
@@ -194,18 +208,27 @@ const Tile = (props) => {
                     onClick={() => setShowModal((prev) => !prev)}
                     style={style.checklistButton}
                 >
-                    Checklist
-                    <div
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            childRef.current.createNewCheckbox();
-                        }}
-                    >
-                        {showModal && (
-                            <Tooltip value="Add" position="mouse">
-                                <FontAwesomeIcon icon={faPlus} />
-                            </Tooltip>
+                    <div style={{ marginRight: "5px" }}>
+                        {showModal ? (
+                            <FontAwesomeIcon icon={faCaretDown} />
+                        ) : (
+                            <FontAwesomeIcon icon={faCaretRight} />
                         )}
+                    </div>
+                    <div style={style.checklistGroup}>
+                        Checklist
+                        <div
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                childRef.current.createNewCheckbox();
+                            }}
+                        >
+                            {showModal && (
+                                <Tooltip value="Add" position="mouse">
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </Tooltip>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div style={style.checklist}>
